@@ -1,19 +1,23 @@
 package session
 
 import (
+	"TinyORM/dialect"
 	"TinyORM/log"
+	"TinyORM/schema"
 	"database/sql"
 	"strings"
 )
 
 type Session struct {
-	db      *sql.DB         // 连接数据库的指针
-	sql     strings.Builder // 拼接sql
-	sqlVars []interface{}   // sql 需要填入的变量
+	db       *sql.DB // 连接数据库的指针
+	dialect  dialect.Dialect
+	refTable *schema.Schema
+	sql      strings.Builder // 拼接sql
+	sqlVars  []interface{}   // sql 需要填入的变量
 }
 
-func New(db *sql.DB) *Session {
-	return &Session{db: db}
+func New(db *sql.DB, dialect dialect.Dialect) *Session {
+	return &Session{db: db, dialect: dialect}
 }
 
 func (s *Session) Clear() {
