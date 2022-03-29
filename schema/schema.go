@@ -41,6 +41,7 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 			// 构建field
 			field := &Field{
 				Name: p.Name,
+				// 不同数据库的类型不同
 				Type: d.DataTypeof(reflect.Indirect(reflect.New(p.Type))),
 			}
 			if v, ok := p.Tag.Lookup("tinyorm"); ok {
