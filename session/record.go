@@ -9,6 +9,7 @@ import (
 func (s *Session) Insert(values ...interface{}) (int64, error) {
 	recordValues := make([]interface{}, 0)
 	for _, value := range values {
+		s.CallMethod(BeforeInsert, value)
 		// 获取table，这里是为了书写方便，其实只用取一次
 		table := s.Model(value).RefTable()
 		// 这是插入的表名和字段内容,，其实也只用写一次
@@ -24,11 +25,13 @@ func (s *Session) Insert(values ...interface{}) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
+	s.CallMethod(AfterInsert, nil)
 	return result.RowsAffected()
 }
 
 // Find 实际是对SELECT的进一步包装
 func (s *Session) Find(values interface{}) error {
+	s.CallMethod(BeforeQuery, nil)
 	// values传入的是数组
 	// 获取该数组的反射值
 	destSlice := reflect.Indirect(reflect.ValueOf(values))
@@ -57,6 +60,7 @@ func (s *Session) Find(values interface{}) error {
 		if err = rows.Scan(values...); err != nil {
 			return err
 		}
+		s.CallMethod(AfterQuery, dest.Addr().Interface())
 		// 将dest追加到数组，并且将数组值重新设
 		destSlice.Set(reflect.Append(destSlice, dest))
 	}
@@ -65,6 +69,7 @@ func (s *Session) Find(values interface{}) error {
 
 // Update 接受两种入参，平铺开的键值对和map
 func (s *Session) Update(kv ...interface{}) (int64, error) {
+	s.CallMethod(BeforeUpdate, nil)
 	// 尝试强转成map
 	m, ok := kv[0].(map[string]interface{})
 	// 将字段聚集成map
@@ -81,16 +86,19 @@ func (s *Session) Update(kv ...interface{}) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
+	s.CallMethod(AfterUpdate, nil)
 	return result.RowsAffected()
 }
 
 func (s *Session) Delete() (int64, error) {
+	s.CallMethod(BeforeDelete, nil)
 	s.clause.Set(clause.DELETE, s.RefTable().Name)
 	sql, vars := s.clause.Build(clause.DELETE, clause.WHERE)
 	result, err := s.Raw(sql, vars...).Exec()
 	if err != nil {
 		return 0, err
 	}
+	s.CallMethod(AfterDelete, nil)
 	return result.RowsAffected()
 }
 
