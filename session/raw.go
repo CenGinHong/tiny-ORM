@@ -12,11 +12,21 @@ import (
 type Session struct {
 	db       *sql.DB // 连接数据库的指针
 	dialect  dialect.Dialect
+	tx       *sql.Tx // 支持事务
 	refTable *schema.Schema
 	clause   clause.Clause
 	sql      strings.Builder // 拼接sql
 	sqlVars  []interface{}   // sql 需要填入的变量
 }
+
+type CommonDB interface {
+	Query(query string, args ...interface{}) (*sql.Rows, error)
+	QueryRow(query string, args ...interface{}) *sql.Row
+	Exec(query string, args ...interface{}) (sql.Result, error)
+}
+
+var _ CommonDB = (*sql.DB)(nil)
+var _ CommonDB = (*sql.Tx)(nil)
 
 func New(db *sql.DB, dialect dialect.Dialect) *Session {
 	return &Session{db: db, dialect: dialect}
@@ -28,7 +38,11 @@ func (s *Session) Clear() {
 	s.clause = clause.Clause{}
 }
 
-func (s *Session) DB() *sql.DB {
+// DB 返回CommonDB接口，当使用事务时基于事务做查询
+func (s *Session) DB() CommonDB {
+	if s.tx != nil {
+		return s.tx
+	}
 	return s.db
 }
 
