@@ -4,6 +4,7 @@ import (
 	"TinyORM/session"
 	"errors"
 	_ "github.com/mattn/go-sqlite3"
+	"reflect"
 	"testing"
 )
 
@@ -60,5 +61,30 @@ func transactionCommit(t *testing.T) {
 	_ = s.First(u)
 	if err != nil || u.Name != "Tom" {
 		t.Fatal("failed to commit")
+	}
+}
+
+func TestEngine_Migrate(t *testing.T) {
+	engine := OpenDB(t)
+	defer engine.Close()
+	s := engine.NewSession()
+	_, err := s.Raw("DROP TABLE IF EXISTS User;").Exec()
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = s.Raw("CREATE TABLE User(Name text PRIMARY KEY, XXX integer);").Exec()
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = s.Raw("INSERT INTO User(`Name`) values (?), (?)", "Tom", "Sam").Exec()
+	if err != nil {
+		t.Fatal(err)
+	}
+	_ = engine.Migrate(&User{})
+
+	rows, _ := s.Raw("SELECT * FROM User").QueryRows()
+	columns, _ := rows.Columns()
+	if !reflect.DeepEqual(columns, []string{"Name", "Age"}) {
+		t.Fatal("Failed to migrate table User, got columns", columns)
 	}
 }

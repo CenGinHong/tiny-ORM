@@ -1,4 +1,4 @@
-module TinyORM
+module github.com/CenGinHong/TinyORM
 
 go 1.17
 
