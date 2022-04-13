@@ -83,7 +83,7 @@ func _update(values ...interface{}) (string, []interface{}) {
 		keys = append(keys, k+" = ?")
 		vars = append(vars, v)
 	}
-	return fmt.Sprintf("UPFATE %s SET %s", tableName, strings.Join(keys, ", ")), vars
+	return fmt.Sprintf("UPDATE %s SET %s", tableName, strings.Join(keys, ", ")), vars
 }
 
 func _delete(values ...interface{}) (string, []interface{}) {
