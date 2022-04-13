@@ -1,9 +1,9 @@
 package session
 
 import (
-	"TinyORM/log"
-	"TinyORM/schema"
 	"fmt"
+	"github.com/CenGinHong/TinyORM/log"
+	"github.com/CenGinHong/TinyORM/schema"
 	"reflect"
 	"strings"
 )

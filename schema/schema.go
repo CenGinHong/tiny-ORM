@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"TinyORM/dialect"
+	"github.com/CenGinHong/TinyORM/dialect"
 	"go/ast"
 	"reflect"
 )

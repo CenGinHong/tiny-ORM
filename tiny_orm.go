@@ -1,11 +1,11 @@
 package main
 
 import (
-	"TinyORM/dialect"
-	"TinyORM/log"
-	"TinyORM/session"
 	"database/sql"
 	"fmt"
+	"github.com/CenGinHong/TinyORM/dialect"
+	"github.com/CenGinHong/TinyORM/log"
+	"github.com/CenGinHong/TinyORM/session"
 	"strings"
 )
 

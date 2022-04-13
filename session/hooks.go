@@ -1,7 +1,7 @@
 package session
 
 import (
-	"TinyORM/log"
+	"github.com/CenGinHong/TinyORM/log"
 	"reflect"
 )
 

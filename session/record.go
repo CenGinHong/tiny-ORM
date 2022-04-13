@@ -1,8 +1,8 @@
 package session
 
 import (
-	"TinyORM/clause"
 	"errors"
+	"github.com/CenGinHong/TinyORM/clause"
 	"reflect"
 )
 
