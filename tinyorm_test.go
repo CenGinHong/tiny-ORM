@@ -1,8 +1,8 @@
-package main
+package TinyORM
 
 import (
-	"TinyORM/session"
 	"errors"
+	"github.com/CenGinHong/TinyORM/session"
 	_ "github.com/mattn/go-sqlite3"
 	"reflect"
 	"testing"
