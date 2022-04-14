@@ -1,4 +1,4 @@
-package orm
+package TinyORM
 
 import (
 	"database/sql"
