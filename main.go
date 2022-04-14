@@ -1,4 +1,4 @@
-package TinyORM
+package tinyORM
 
 import (
 	"fmt"
