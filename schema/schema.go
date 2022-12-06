@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"github.com/CenGinHong/TinyORM/dialect"
+	"github.com/CenGinHong/tiny-ORM/dialect"
 	"go/ast"
 	"reflect"
 )
@@ -44,7 +44,7 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 				// 不同数据库的类型不同
 				Type: d.DataTypeof(reflect.Indirect(reflect.New(p.Type))),
 			}
-			if v, ok := p.Tag.Lookup("tinyorm"); ok {
+			if v, ok := p.Tag.Lookup("tiny-ORM"); ok {
 				field.Tag = v
 			}
 			schema.Fields = append(schema.Fields, field)

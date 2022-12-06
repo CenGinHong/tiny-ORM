@@ -2,10 +2,10 @@ package session
 
 import (
 	"database/sql"
-	"github.com/CenGinHong/TinyORM/clause"
-	"github.com/CenGinHong/TinyORM/dialect"
-	"github.com/CenGinHong/TinyORM/log"
-	"github.com/CenGinHong/TinyORM/schema"
+	"github.com/CenGinHong/tiny-ORM/clause"
+	"github.com/CenGinHong/tiny-ORM/dialect"
+	"github.com/CenGinHong/tiny-ORM/log"
+	"github.com/CenGinHong/tiny-ORM/schema"
 	"strings"
 )
 

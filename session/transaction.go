@@ -1,6 +1,6 @@
 package session
 
-import "github.com/CenGinHong/TinyORM/log"
+import "github.com/CenGinHong/tiny-ORM/log"
 
 func (s *Session) Begin() (err error) {
 	log.Info("transaction begin")

@@ -2,7 +2,7 @@ package session
 
 import (
 	"errors"
-	"github.com/CenGinHong/TinyORM/clause"
+	"github.com/CenGinHong/tiny-ORM/clause"
 	"reflect"
 )
 

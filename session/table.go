@@ -2,8 +2,8 @@ package session
 
 import (
 	"fmt"
-	"github.com/CenGinHong/TinyORM/log"
-	"github.com/CenGinHong/TinyORM/schema"
+	"github.com/CenGinHong/tiny-ORM/log"
+	"github.com/CenGinHong/tiny-ORM/schema"
 	"reflect"
 	"strings"
 )
